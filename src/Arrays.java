@@ -16,18 +16,23 @@ public class Arrays {
         nums[8] = 9;
         nums[9] = 10;
 
-        // with a loop
         // (in python)
-        // for v in nums:
-        //   print(v)
         // for i in range(len(nums)):
         //   nums[i] = i+1
+        
+        // USE THIS VERSION OF THE LOOP IF YOU NEED TO UPDATE AN ARRAY VALUE
         for (int i=0; i<nums.length; i++) {
             nums[i] = i+1;
         }
+        
+        // (in python)
         // for v in nums:
+        //   print(v)
+
+        // USE THIS VERSION IF YOU ONLY NEED THE VALUES AND DON'T CARE ABOUT THE POSITION WITHIN THE ARRAY
         for (int v : nums) {
             System.out.println(v);
         }
     }
 }
+
