@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ToolPanel extends JPanel {
 
@@ -13,20 +14,55 @@ public class ToolPanel extends JPanel {
     
     protected Color currentColor = Color.BLACK;
     protected ShapeType currentShape = ShapeType.RECTANGLE;
+    protected ArrayList<ToolButton> buttons = new ArrayList<>();
 
     public ToolPanel() {
         setupPanel();
     }
 
+    protected void deselectButtons() {
+        for (ToolButton toolButton : buttons) {
+            toolButton.isSelected = false;
+            toolButton.repaint();
+        }
+    }
+
     protected void setupPanel() {
-        JPanel shapePanel = new JPanel(new GridLayout(7,2));
-        JButton pencilButton = new JButton("Pencil");
-        pencilButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentShape = ShapeType.PENCIL;
-            }
-        });
+        this.setLayout(new GridLayout(18,1));
+        ToolButton pencilButton = new ToolButton(this, ShapeType.PENCIL, "Pencil");
+        ToolButton lineButton = new ToolButton(this, ShapeType.LINE, "Line");
+        ToolButton rectangleButton = new ToolButton(this, ShapeType.RECTANGLE, "Rectangle");
+        ToolButton squareButton = new ToolButton(this, ShapeType.SQUARE, "Square");
+        ToolButton ellipseButton = new ToolButton(this, ShapeType.ELLIPSE, "Ellipse");
+        ToolButton circleButton = new ToolButton(this, ShapeType.CIRCLE, "Circle");
+        ToolButton triEquiButton = new ToolButton(this, ShapeType.TRIANGLE_EQUILATERAL, "Equilateral");
+        ToolButton triIsocButton = new ToolButton(this, ShapeType.TRIANGLE_ISOCOLES, "Isocoles");
+        ToolButton triScaleButton = new ToolButton(this, ShapeType.TRIANGLE_SCALENE, "Scalene");
+        ToolButton pentagonButton = new ToolButton(this, ShapeType.PENTAGON, "Pentagon");
+        ToolButton hexagonButton = new ToolButton(this, ShapeType.HEXAGON, "Hexagon");
+        pencilButton.isSelected = true;
+        add(pencilButton);
+        add(lineButton);
+        add(rectangleButton);
+        add(squareButton);
+        add(ellipseButton);
+        add(circleButton);
+        add(triEquiButton);
+        add(triIsocButton);
+        add(triScaleButton);
+        add(pentagonButton);
+        add(hexagonButton);    
+        buttons.add(pencilButton);
+        buttons.add(lineButton);
+        buttons.add(rectangleButton);
+        buttons.add(squareButton);
+        buttons.add(ellipseButton);
+        buttons.add(circleButton);
+        buttons.add(triEquiButton);
+        buttons.add(triIsocButton);
+        buttons.add(triScaleButton);
+        buttons.add(pentagonButton);
+        buttons.add(hexagonButton);
     }
 
 }
