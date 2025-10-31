@@ -1,12 +1,15 @@
 package chapter10;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Ellipse extends Shape {
 
-    public Ellipse(int width, int height, String color) {
+    public Ellipse(int width, int height, int x, int y, Color color) {
         this.width = width;
         this.height = height;
+        this.x = x;
+        this.y = y;
         this.color = color;
     }
 

@@ -1,5 +1,6 @@
 package chapter10;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Rectangle extends Shape {
@@ -10,9 +11,11 @@ public class Rectangle extends Shape {
      * @param height specifies the length of the new rectangle
      * @param width specifies the width of the new rectangle
      */
-    public Rectangle(int width, int height, String color) {
+    public Rectangle(int width, int height, int x, int y, Color color) {
         this.width = width;
         this.height = height;
+        this.x = x;
+        this.y = y;
         this.color = color;
     }
 
@@ -31,7 +34,8 @@ public class Rectangle extends Shape {
      */
     @Override
     public void draw(Graphics2D g) {
-        g.drawRect(0, 0, width, height);
+        g.setColor(color);
+        g.drawRect(x, y, width, height);
     }
 
     @Override

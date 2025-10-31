@@ -4,14 +4,19 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.Color;
 import java.awt.Graphics;
 
-public class ShapePanel extends JPanel {
+public class ShapePanel extends JPanel implements MouseListener {
 
     protected ArrayList<Shape> shapes = new ArrayList<>();
+    protected ToolPanel toolPanel; // reference to the tool panel object which has the currently selected shape and the currently selected color, style, etc...
 
-    public ShapePanel() {
-        // setSize(1500,1000);
+    public ShapePanel(ToolPanel toolPanel) {
+        this.toolPanel = toolPanel; 
+        addMouseListener(this);
     }
 
     public void addShape(Shape s) {
@@ -25,5 +30,56 @@ public class ShapePanel extends JPanel {
        for (Shape shape : shapes) {
          shape.draw(g2d);
        } 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("clicked shape panel");
+        switch (toolPanel.currentShape) {
+            case CIRCLE:
+                break;
+            case ELLIPSE:
+                break;
+            case HEXAGON:
+                break;
+            case LINE:
+                break;
+            case PENCIL:
+                break;
+            case PENTAGON:
+                break;
+            case RECTANGLE:
+                System.out.println("clicked while rectangle was selected");
+                shapes.add(new Rectangle(20, 10, e.getX(), e.getY(), toolPanel.currentColor));
+                break;
+            case SQUARE:
+                break;
+            case TRIANGLE_EQUILATERAL:
+                break;
+            case TRIANGLE_ISOCOLES:
+                break;
+            case TRIANGLE_SCALENE:
+                break;
+            default:
+                break;
+            
+        }
+        getParent().repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }
