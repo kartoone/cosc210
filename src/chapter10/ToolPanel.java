@@ -40,7 +40,7 @@ public class ToolPanel extends JPanel {
         ToolButton triScaleButton = new ToolButton(this, ShapeType.TRIANGLE_SCALENE, "Scalene");
         ToolButton pentagonButton = new ToolButton(this, ShapeType.PENTAGON, "Pentagon");
         ToolButton hexagonButton = new ToolButton(this, ShapeType.HEXAGON, "Hexagon");
-        pencilButton.isSelected = true;
+        rectangleButton.isSelected = true;
         add(pencilButton);
         add(lineButton);
         add(rectangleButton);

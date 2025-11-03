@@ -37,8 +37,10 @@ public class ShapePanel extends JPanel implements MouseListener {
         System.out.println("clicked shape panel");
         switch (toolPanel.currentShape) {
             case CIRCLE:
+                shapes.add(new Circle(10, e.getX(), e.getY(), toolPanel.currentColor));
                 break;
             case ELLIPSE:
+                shapes.add(new Ellipse(20, 10, e.getX(), e.getY(), toolPanel.currentColor));
                 break;
             case HEXAGON:
                 break;
@@ -47,12 +49,15 @@ public class ShapePanel extends JPanel implements MouseListener {
             case PENCIL:
                 break;
             case PENTAGON:
+                shapes.add(new Pentagon(100, e.getX(), e.getY(), toolPanel.currentColor));
+
                 break;
             case RECTANGLE:
                 System.out.println("clicked while rectangle was selected");
                 shapes.add(new Rectangle(20, 10, e.getX(), e.getY(), toolPanel.currentColor));
                 break;
             case SQUARE:
+                shapes.add(new Square(20, e.getX(), e.getY(), toolPanel.currentColor));
                 break;
             case TRIANGLE_EQUILATERAL:
                 break;

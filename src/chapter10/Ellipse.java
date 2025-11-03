@@ -20,7 +20,9 @@ public class Ellipse extends Shape {
 
     @Override
     protected void draw(Graphics2D g) {
-        System.out.println("IMAGINE THIS IS A " + this.width + "x" + this.height + " " + getName());    
+        System.out.println("IMAGINE THIS IS A " + this.width + "x" + this.height + " " + getName());
+        g.setColor(color);
+        g.drawOval(x, y, width, height);
     }
 
 }
