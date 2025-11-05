@@ -11,7 +11,7 @@ public class TriangleEquilateral extends Triangle {
 
     @Override
     protected void draw(Graphics2D g) {
-
+        
     } 
 
 }

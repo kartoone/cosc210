@@ -48,7 +48,7 @@ public abstract class Polygon extends Shape {
         // Connect every consecutive vertex together
         for (int i = 0; i < numSides; i++) {
             g.drawLine((int)Math.round(px[i]), (int)Math.round(py[i]),
-                        (int)Math.round(px[i+1]), (int)Math.round(py[i+1]));
+                        (int)Math.round(px[(i+1)%numSides]), (int)Math.round(py[(i+1)%numSides]));
         }
     }
 

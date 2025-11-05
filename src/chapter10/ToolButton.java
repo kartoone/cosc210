@@ -18,6 +18,7 @@ public class ToolButton extends JButton implements ActionListener {
         super(buttonText);
         this.toolPanel = toolPanel;
         this.shapeType = shapeType;
+        setOpaque(true);
         addActionListener(this);
     }
 
@@ -27,7 +28,7 @@ public class ToolButton extends JButton implements ActionListener {
         toolPanel.deselectButtons();
         isSelected = true;
         this.setBackground(Color.BLUE);
-        this.setForeground(Color.WHITE);
+        //this.setForeground(Color.WHITE);
     }
 
     @Override

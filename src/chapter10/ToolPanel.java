@@ -12,7 +12,7 @@ public class ToolPanel extends JPanel {
 
     static enum ShapeType { PENCIL, LINE, RECTANGLE, SQUARE, ELLIPSE, CIRCLE, TRIANGLE_EQUILATERAL, TRIANGLE_ISOCOLES, TRIANGLE_SCALENE, PENTAGON, HEXAGON};
     
-    protected Color currentColor = Color.BLACK;
+    protected Color currentColor = Color.RED;
     protected ShapeType currentShape = ShapeType.RECTANGLE;
     protected ArrayList<ToolButton> buttons = new ArrayList<>();
 
@@ -63,6 +63,23 @@ public class ToolPanel extends JPanel {
         buttons.add(triScaleButton);
         buttons.add(pentagonButton);
         buttons.add(hexagonButton);
+
+        JButton colorButton = new JButton(""+currentColor);
+        add(colorButton);
+        colorButton.setBackground(currentColor);
+        colorButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color newColor = JColorChooser.showDialog(colorButton, "Choose a color", currentColor);
+                if (newColor != null) {
+                    currentColor = newColor;
+                    colorButton.setBackground(currentColor);
+                }
+
+            }
+            
+        });
     }
 
 }
