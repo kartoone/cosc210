@@ -6,22 +6,26 @@ import javax.swing.*;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class ShapePanel extends JPanel implements MouseListener {
+public class ShapePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     protected ArrayList<Shape> shapes = new ArrayList<>();
     protected ToolPanel toolPanel; // reference to the tool panel object which has the currently selected shape and the currently selected color, style, etc...
+    protected Integer startDragX; // coordinates of location where a drag started
+    protected Integer startDragY; // these two "objects" will be null whenever we are not dragging something
 
     public ShapePanel(ToolPanel toolPanel) {
         this.toolPanel = toolPanel; 
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     public void addShape(Shape s) {
         shapes.add(s);
-        repaint();
+        getParent().repaint();
     }
 
     @Override
@@ -73,6 +77,8 @@ public class ShapePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        startDragX = null;
+        startDragY = null;
     }
 
     @Override
@@ -81,5 +87,24 @@ public class ShapePanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (startDragX==null) {
+            startDragX = e.getX();
+            startDragY = e.getY();
+
+        } else {
+            // we must have already been dragging!
+            // delete the old line and the new line
+            shapes.removeLast();
+        }
+        addShape(new Line(startDragX, startDragY, e.getX(), e.getY(), toolPanel.currentColor));
+        System.out.println(shapes);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
     }
 }
