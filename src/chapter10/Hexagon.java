@@ -2,10 +2,10 @@ package chapter10;
 
 import java.awt.Color;
 
-public class Pentagon extends Polygon {
+public class Hexagon extends Polygon {
 
-    public Pentagon(int sidelength, int x, int y, Color color) {
-        super(5, sidelength, x, y, color);
+    public Hexagon(int sidelength, int x, int y, Color color) {
+        super(6, sidelength, x, y, color);
     }
 
     @Override

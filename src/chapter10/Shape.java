@@ -6,7 +6,7 @@ import java.awt.Color;
 public abstract class Shape {
 
     protected Color color;
-    protected int width;
+    protected int width; // the width of this shape or the side-length for shapes where width and height doesn't make sense but side-length does
     protected int height;
     protected int x; // x, y coordinate of the top left of the shape
     protected int y; 
