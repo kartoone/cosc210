@@ -16,6 +16,7 @@ public class ShapePanel extends JPanel implements MouseListener, MouseMotionList
     protected ToolPanel toolPanel; // reference to the tool panel object which has the currently selected shape and the currently selected color, style, etc...
     protected Integer startDragX; // coordinates of location where a drag started
     protected Integer startDragY; // these two "objects" will be null whenever we are not dragging something
+    protected Pencil currentPencil = null; // 
 
     public ShapePanel(ToolPanel toolPanel) {
         this.toolPanel = toolPanel; 
@@ -58,10 +59,10 @@ public class ShapePanel extends JPanel implements MouseListener, MouseMotionList
                 break;
             case RECTANGLE:
                 System.out.println("clicked while rectangle was selected");
-                shapes.add(new Rectangle(20, 10, e.getX(), e.getY(), toolPanel.currentColor));
+                shapes.add(new Rectangle(20, 10, e.getX(), e.getY(), toolPanel.currentColor, toolPanel.fillColor, toolPanel.stroke));
                 break;
             case SQUARE:
-                shapes.add(new Square(20, e.getX(), e.getY(), toolPanel.currentColor));
+                shapes.add(new Square(20, e.getX(), e.getY(), toolPanel.currentColor, toolPanel.fillColor, toolPanel.stroke));
                 break;
             case TRIANGLE_EQUILATERAL:
                 break;
@@ -84,6 +85,7 @@ public class ShapePanel extends JPanel implements MouseListener, MouseMotionList
     public void mouseReleased(MouseEvent e) {
         startDragX = null;
         startDragY = null;
+        currentPencil = null;
     }
 
     @Override
@@ -96,17 +98,26 @@ public class ShapePanel extends JPanel implements MouseListener, MouseMotionList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (startDragX==null) {
-            startDragX = e.getX();
-            startDragY = e.getY();
+        if (toolPanel.currentShape == ToolPanel.ShapeType.LINE) {
+            if (startDragX==null) {
+                startDragX = e.getX();
+                startDragY = e.getY();
 
-        } else {
-            // we must have already been dragging!
-            // delete the old line and the new line
-            shapes.removeLast();
+            } else {
+                // we must have already been dragging!
+                // delete the old line and the new line
+                shapes.removeLast();
+            }
+            addShape(new Line(startDragX, startDragY, e.getX(), e.getY(), toolPanel.currentColor));
+        } else if (toolPanel.currentShape == ToolPanel.ShapeType.PENCIL) {
+            if (currentPencil == null) {
+                currentPencil = new Pencil(e.getX(), e.getY(), toolPanel.currentColor, toolPanel.stroke);
+                addShape(currentPencil);
+            } else {
+                currentPencil.addPoint(e.getX(), e.getY());
+                getParent().repaint();
+            }
         }
-        addShape(new Line(startDragX, startDragY, e.getX(), e.getY(), toolPanel.currentColor));
-        System.out.println(shapes);
     }
 
     @Override

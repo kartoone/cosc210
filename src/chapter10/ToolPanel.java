@@ -2,6 +2,7 @@ package chapter10;
 
 import javax.swing.*;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,8 @@ public class ToolPanel extends JPanel {
     static enum ShapeType { PENCIL, LINE, RECTANGLE, SQUARE, ELLIPSE, CIRCLE, TRIANGLE_EQUILATERAL, TRIANGLE_ISOCOLES, TRIANGLE_SCALENE, PENTAGON, HEXAGON};
     
     protected Color currentColor = Color.RED;
+    protected Color fillColor = null; // null means transparent
+    protected BasicStroke stroke = new BasicStroke(1.0f);
     protected ShapeType currentShape = ShapeType.RECTANGLE;
     protected ArrayList<ToolButton> buttons = new ArrayList<>();
 
@@ -80,6 +83,40 @@ public class ToolPanel extends JPanel {
             }
             
         });
+
+        JButton fillButton = new JButton(""+(fillColor!=null?fillColor:"transparent"));
+        add(fillButton);
+        fillButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color newColor = JColorChooser.showDialog(fillButton, "Choose a fill color", fillColor);
+                if (newColor != null) {
+                    fillColor = newColor;
+                    fillButton.setText(""+(fillColor!=null?fillColor:"transparent"));
+                    fillButton.setBackground(fillColor);
+                }
+
+            }
+            
+        });
+
+        JButton strokeButton = new JButton(""+stroke);
+        add(strokeButton);
+        strokeButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BasicStroke newStroke = StrokeChooser.showDialog(strokeButton, "Choose a line width", stroke);
+                if (newStroke != null) { // check for null in case the user clicked cancel
+                    stroke = newStroke;
+                    strokeButton.setText(""+stroke);
+                }
+
+            }
+            
+        });
+    
     }
 
 }
