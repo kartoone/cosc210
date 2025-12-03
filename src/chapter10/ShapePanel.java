@@ -106,7 +106,8 @@ public class ShapePanel extends JPanel implements MouseListener, MouseMotionList
             } else {
                 // we must have already been dragging!
                 // delete the old line and the new line
-                shapes.removeLast();
+                // shapes.removeLast();
+                shapes.remove(shapes.size() - 1);
             }
             addShape(new Line(startDragX, startDragY, e.getX(), e.getY(), toolPanel.currentColor));
         } else if (toolPanel.currentShape == ToolPanel.ShapeType.PENCIL) {
