@@ -12,6 +12,7 @@ import java.net.URL;
 public class HttpManager {
 
 	private static final String USER_AGENT = "Mozilla/5.0";
+	private static String currentURL = "";
 
 	public static void main(String[] args) throws IOException {
 		sendGET("https://www.samford.edu");
@@ -20,7 +21,12 @@ public class HttpManager {
 		System.out.println("POST DONE");
 	}
 
-	public static void sendGET(String url) throws IOException {
+	public static String getCurrentURL() {
+		return currentURL;
+	}
+
+	public static String sendGET(String url) throws IOException {
+		currentURL = url;
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");
@@ -37,15 +43,17 @@ public class HttpManager {
 			}
 			in.close();
 
-			// print result
-			System.out.println(response.toString());
+			// return result
+			return response.toString();
 		} else {
-			System.out.println("GET request did not work.");
+			System.err.println("GET request did not work.");
+			return "GET request did not work.";
 		}
 
 	}
 
-	public static void sendPOST(String url, String params) throws IOException {
+	public static String sendPOST(String url, String params) throws IOException {
+		currentURL = url;
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
@@ -72,10 +80,11 @@ public class HttpManager {
 			}
 			in.close();
 
-			// print result
-			System.out.println(response.toString());
+			// return result
+			return response.toString();
 		} else {
-			System.out.println("POST request did not work.");
+			System.err.println("POST request did not work.");
+			return "POST request did not work.";
 		}
 	}
 

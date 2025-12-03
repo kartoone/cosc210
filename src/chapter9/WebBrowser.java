@@ -43,6 +43,14 @@ public class WebBrowser extends JFrame implements ActionListener, WindowListener
         urlPanel.add(goButton);
         add(urlPanel, BorderLayout.NORTH);
 
+        webPanel = new JWebPanel();
+        add(webPanel, BorderLayout.CENTER);
+        
+        printerPanel = new JPrinterPanel();
+        add(printerPanel, BorderLayout.SOUTH);
+
+        pack();
+
         // register this object to listen to all the events
         // coming from all our buttons and from the JFrame itself
         backButton.addActionListener(this);
@@ -71,8 +79,6 @@ public class WebBrowser extends JFrame implements ActionListener, WindowListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
     @Override
