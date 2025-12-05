@@ -12,7 +12,7 @@ public class JWebPanel extends JPanel {
 
         contentArea.setLineWrap(true);
         contentArea.setWrapStyleWord(true);
-        contentArea.setEditable(false);
+        contentArea.setEditable(false); 
 
         JScrollPane scrollPane = new JScrollPane(contentArea,
                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -27,6 +27,10 @@ public class JWebPanel extends JPanel {
         } catch (Exception ex) {
             System.err.println(ex);
         }
+    }
+
+    public void clear() {
+        contentArea.setText("");    
     }
 
 }

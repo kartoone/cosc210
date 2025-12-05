@@ -1,5 +1,6 @@
 package chapter9;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,8 @@ public class JPrinterPanel extends JPanel implements ActionListener {
         this.add(printButton);
         this.add(cancelButton);
         this.add(completeButton);
+        completeButton.setEnabled(false);
+        this.setPreferredSize(new Dimension(500, 100));
         printButton.addActionListener(this);
         cancelButton.addActionListener(this);
         completeButton.addActionListener(this);
@@ -25,7 +28,24 @@ public class JPrinterPanel extends JPanel implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        String currentUrl = HttpManager.getCurrentURL();
+        if (e.getSource() == printButton) {
+            if (currentUrl.length()>0) {
+                displayMessage("Starting: " + currentUrl);
+                printerQueue.enqueue(currentUrl);
+                completeButton.setEnabled(true);
+            }
+        } else if (e.getSource() == completeButton) {
+            String finishedJob = printerQueue.dequeue();
+            displayMessage("Finished: " + finishedJob);
+            if (printerQueue.size()==0) {
+                completeButton.setEnabled(false);
+            }
+        }
+    }
 
+    private void displayMessage(String string) {
+        queueDisplay.setText(queueDisplay.getText()+"\n" + string);
     }
 
 }

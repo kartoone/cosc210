@@ -53,7 +53,10 @@ public class WebBrowser extends JFrame implements ActionListener, WindowListener
 
         // register this object to listen to all the events
         // coming from all our buttons and from the JFrame itself
+        backStack.push(""); // prepopulate stack with our start page
+        backButton.setEnabled(false);
         backButton.addActionListener(this);
+        forwardButton.setEnabled(false);
         forwardButton.addActionListener(this);
         goButton.addActionListener(this);
         addWindowListener(this);
@@ -79,6 +82,49 @@ public class WebBrowser extends JFrame implements ActionListener, WindowListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String currentUrl = HttpManager.getCurrentURL();
+        if (e.getSource() == goButton) {
+            if (currentUrl.length()>0) {
+                backButton.setEnabled(true);
+            }
+            String newUrl = urlTextField.getText();
+            if (newUrl.length()>0 && newUrl.contains("https")) {
+                webPanel.navigate(newUrl);
+                backStack.push(currentUrl);
+            } 
+        } else if (e.getSource() == backButton) {
+            forwardStack.push(currentUrl);
+            forwardButton.setEnabled(true);
+            if (backStack.size()==0) {
+                webPanel.clear();
+                backButton.setEnabled(false);
+            } else {
+                String newUrl = backStack.pop();
+                if (newUrl.length()==0) {
+                    backButton.setEnabled(false);
+                    webPanel.clear();
+                } else {
+                    webPanel.navigate(newUrl);
+                }
+                urlTextField.setText(newUrl);
+            }
+        } else if (e.getSource() == forwardButton) {
+            backStack.push(currentUrl);
+            backButton.setEnabled(true);
+            if (forwardStack.size()==0) {
+                webPanel.clear();
+                forwardButton.setEnabled(false);
+            } else {
+                String newUrl = forwardStack.pop();
+                if (newUrl.length()==0) {
+                    forwardButton.setEnabled(false);
+                    webPanel.clear();
+                } else {
+                    webPanel.navigate(newUrl);
+                }
+                urlTextField.setText(newUrl);
+            }
+        }
     }
 
     @Override
