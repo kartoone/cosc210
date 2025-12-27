@@ -17,7 +17,8 @@ public class Day2 {
         }
     }
 
-    private static long method1(Scanner scanner) {
+    @SuppressWarnings("unused")
+	private static long method1(Scanner scanner) {
         String ranges = scanner.nextLine();
         long total = 0;
         String[] parts = ranges.split(",");

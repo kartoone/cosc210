@@ -17,39 +17,6 @@ public class Day3 {
         }
     }
 
-    private static long method1(Scanner scanner) {
-        long total = 0;
-        while (scanner.hasNextLine()) {
-            String bank = scanner.nextLine();
-            int maxdigit = 0;
-            int maxpos = 0;
-            // algorithm search first n-1 characters for largest digit ... but find the leftmost occurrence of it
-            for (int i=0; i<bank.length()-1; i++) {
-                int potmax = Integer.parseInt(""+bank.charAt(i));
-                if (potmax>maxdigit) { // strictly greater will make sure we find the leftmost
-                    maxdigit = potmax;
-                    maxpos = i;
-                }
-            }
-
-            // now start from maxpos+1 and go to the end stopping once we find a 9 (early) or all the way to end
-            int maxsecond = 0;
-            for (int i=maxpos+1; i<bank.length(); i++) {
-                int potmax = Integer.parseInt(""+bank.charAt(i));
-                if (potmax>maxsecond) { // strictly greater will make sure we find the leftmost
-                    maxsecond = potmax;
-                }
-                if (maxsecond == 9) {
-                    break; // stop early
-                }
-            }
-
-            String twodigit = ""+maxdigit+""+maxsecond;
-            total += Integer.parseInt(twodigit);
-        }
-        return total;
-    }
-
     private static long method2(Scanner scanner) {
         long total = 0;
         while (scanner.hasNextLine()) {
